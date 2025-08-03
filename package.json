@@ -3,7 +3,9 @@
   "version": "1.0.0",
   "description": "Secure XUMM NFT Player with Vercel Serverless Functions",
   "private": true,
+  "type": "module",
   "scripts": {
+    "start": "node server.js"
   },
   "dependencies": {
     "xumm-sdk": "^1.8.3"
