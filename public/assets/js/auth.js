@@ -1,3 +1,4 @@
+console.log("--- Loading auth.js ---");
 import { UIManager } from './state-manager.js';
 import { iOSAudio } from './ios-audio.js';
 import { Player } from './player.js';

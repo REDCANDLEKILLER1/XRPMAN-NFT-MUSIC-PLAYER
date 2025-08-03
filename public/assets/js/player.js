@@ -1,3 +1,4 @@
+console.log("--- Loading player.js ---");
 import { iOSAudio } from './ios-audio.js';
 
 let audio;

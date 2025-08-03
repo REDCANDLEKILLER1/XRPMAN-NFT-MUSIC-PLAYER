@@ -1,3 +1,4 @@
+console.log("--- Loading visualizer.js ---");
 import { iOSAudio } from './ios-audio.js';
 
 let canvasCtx;

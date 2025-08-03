@@ -1,3 +1,4 @@
+console.log("--- Loading state-manager.js ---");
 export const UIManager = {
     signInButton: document.getElementById('signInButton'),
     authSection: document.getElementById('auth-section'),

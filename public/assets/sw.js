@@ -1,3 +1,4 @@
+console.log("--- Loading sw.js ---");
 const CACHE_NAME = 'xrpman-player-v3';
 const urlsToCache = [
   '/',

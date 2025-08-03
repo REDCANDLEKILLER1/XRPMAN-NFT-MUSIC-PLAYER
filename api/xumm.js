@@ -1,3 +1,4 @@
+console.log("--- Loading api/xumm.js ---");
 import { XummSdk } from 'xumm-sdk';
 
 // This handler will be deployed as a Vercel Serverless Function.
