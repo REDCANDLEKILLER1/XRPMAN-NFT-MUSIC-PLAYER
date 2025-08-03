@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>XRPMAN Secure Player</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="manifest" href="manifest.json">
+</head>
+<body>
+    <div id="root-container">
+        <header>
+            <h1>XRPMAN Secure Player</h1>
+        </header>
+        <main>
+            <div id="auth-section">
+                <button id="signInButton">Sign In with XUMM</button>
+            </div>
+            <div id="result-section" style="display: none;">
+                <p id="status-message">Waiting...</p>
+                <div id="qr-code"></div>
+                <pre id="response-output"></pre>
+            </div>
+            <div id="player-section" style="display: none;">
+                <canvas id="visualizer-canvas" width="500" height="200"></canvas>
+                <div id="player-controls">
+                    <p id="track-title">Select an NFT to play</p>
+                    <button id="playPauseButton">Play</button>
+                </div>
+                <div id="playlist-container">
+                    <h3>Your Playable NFTs</h3>
+                    <div id="playlist">Loading...</div>
+                </div>
+            </div>
+        </main>
+    </div>
+    
+    <script src="https://unpkg.com/xrpl@2.15.0/dist/npm/xrpl.js"></script>
+    
+    <script src="/assets/js/auth.js" type="module"></script>
+</body>
+</html>
