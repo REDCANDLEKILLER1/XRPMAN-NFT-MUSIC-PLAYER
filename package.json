@@ -4,6 +4,9 @@
   "description": "Secure XUMM NFT Player with Vercel Serverless Functions",
   "private": true,
   "type": "module",
+  "engines": {
+    "node": ">=18.0.0"
+  },
   "scripts": {
     "start": "node server.js"
   },
