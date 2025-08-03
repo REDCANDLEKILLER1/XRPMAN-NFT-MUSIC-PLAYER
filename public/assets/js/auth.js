@@ -14,21 +14,20 @@ async function api(action, payload) {
     });
 
     if (!response.ok) {
-        // This part is new. It checks if the error is JSON or plain text.
         const contentType = response.headers.get("content-type");
         let errorText;
         if (contentType && contentType.includes("application/json")) {
             const errorJson = await response.json();
             errorText = errorJson.message || 'API request failed (JSON)';
         } else {
-            // This will capture the "A server e..." text without crashing.
             errorText = await response.text();
         }
         throw new Error(errorText);
     }
-
+    
     return response.json();
 }
+
 async function signIn() {
     UIManager.reset();
     iOSAudio.unlock();
@@ -65,7 +64,8 @@ function startPolling(uuid) {
 async function loadAndDisplayNFTs(authData) {
     UIManager.showPlayer();
     const userAddress = authData.account;
-    const client = new xrpl.Client("wss://s.altnet.rippletest.net:51233");
+    // This line is now updated to the Mainnet server
+    const client = new xrpl.Client("wss://xrplcluster.com/");
 
     try {
         await client.connect();
