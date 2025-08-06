@@ -4,7 +4,7 @@ import { XummSdk } from 'xumm-sdk';
 // This handler will be deployed as a Vercel Serverless Function.
 export default async function handler(req, res) {
   // Only allow POST requests
-  if (req.method!== 'POST') {
+  if (req.method !== 'POST') {
     return res.status(405).json({ message: 'Method Not Allowed' });
   }
 
@@ -25,7 +25,7 @@ export default async function handler(req, res) {
         break;
       case 'getPayload':
         // Ensure payload is a string (UUID) for get requests
-        if (typeof payload!== 'string') {
+        if (typeof payload !== 'string') {
           return res.status(400).json({ message: 'Invalid payload UUID for getPayload.' });
         }
         result = await sdk.payload.get(payload);
@@ -45,10 +45,7 @@ export default async function handler(req, res) {
 
   } catch (error) {
     console.error('API Proxy Error:', error);
-    res.status(500).json({ message: 'An error occurred on the server.' });
+    // Be careful not to expose detailed internal errors to the client
+    res.status(500).json({ message: 'An error occurred during the XUMM API request.' });
   }
 }
-````
-
-**5. `public/index.html`**
-*The main HTML file. Note the removal of the inline script that exposed the API key. It now loads the refactored JavaScript files.*
