@@ -9,11 +9,3 @@ A token-gated Progressive Web App (PWA) music player for the XRPMAN NFT collecti
   - Robust Shuffling: Replaced the biased shuffle method with the statistically fair Fisher-Yates algorithm.
   - Modern Deployment: Uses a streamlined Git-based workflow with Vercel for automated, secure deployments.
 
-## Requirements
-
-  - Node.js and npm.
-  - A Vercel account (for deployment).
-  - An XUMM wallet with at least one XRPMAN NFT.
-  - Your XUMM API Key and Secret.
-
-## Local Development
