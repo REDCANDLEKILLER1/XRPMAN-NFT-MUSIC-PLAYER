@@ -1,21 +1,24 @@
 // api/xumm.js
-// Force Node (NOT Edge)
+// Force Node (NOT Edge) so xumm-sdk works
 export const config = { runtime: 'nodejs20.x' };
 
 import { XummSdk } from 'xumm-sdk';
 
 const { XUMM_API_KEY, XUMM_API_SECRET } = process.env;
 
-// tiny CORS helper
+// CORS for web/mobile callers
 function cors(req, res) {
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'GET,POST,OPTIONS');
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
-  if (req.method === 'OPTIONS') { res.status(204).end(); return true; }
+  if (req.method === 'OPTIONS') {
+    res.status(204).end();
+    return true;
+  }
   return false;
 }
 
-// safe JSON extractor (Vercel usually parses, but be defensive)
+// Safe JSON (Vercel usually parses, but be defensive)
 function getJsonBody(req) {
   if (!req.body) return {};
   if (typeof req.body === 'string') {
@@ -32,7 +35,7 @@ export default async function handler(req, res) {
       return res.status(500).json({ ok: false, error: 'Missing XUMM_API_KEY / XUMM_API_SECRET' });
     }
 
-    // quick health/ping: GET /api/xumm?ping=1
+    // Health ping: GET /api/xumm?ping=1
     if (req.method === 'GET') {
       if ('ping' in req.query) {
         const sdk = new XummSdk(XUMM_API_KEY, XUMM_API_SECRET);
@@ -69,7 +72,7 @@ export default async function handler(req, res) {
         break;
       }
       case 'subscribe': {
-        // not implemented via serverless stream; use client polling
+        // not implemented via serverless streaming; use client polling
         return res.status(501).json({ ok: false, error: 'subscribe not implemented; use polling' });
       }
       default:
