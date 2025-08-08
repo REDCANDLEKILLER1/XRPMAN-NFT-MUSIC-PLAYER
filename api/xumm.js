@@ -1,12 +1,10 @@
-// api/xumm.js
-// Force Node (NOT Edge) so xumm-sdk works
+// Force Node (NOT Edge)
 export const config = { runtime: 'nodejs20.x' };
 
 import { XummSdk } from 'xumm-sdk';
 
 const { XUMM_API_KEY, XUMM_API_SECRET } = process.env;
 
-// CORS for web/mobile callers
 function cors(req, res) {
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'GET,POST,OPTIONS');
@@ -18,7 +16,6 @@ function cors(req, res) {
   return false;
 }
 
-// Safe JSON (Vercel usually parses, but be defensive)
 function getJsonBody(req) {
   if (!req.body) return {};
   if (typeof req.body === 'string') {
@@ -35,7 +32,6 @@ export default async function handler(req, res) {
       return res.status(500).json({ ok: false, error: 'Missing XUMM_API_KEY / XUMM_API_SECRET' });
     }
 
-    // Health ping: GET /api/xumm?ping=1
     if (req.method === 'GET') {
       if ('ping' in req.query) {
         const sdk = new XummSdk(XUMM_API_KEY, XUMM_API_SECRET);
@@ -52,29 +48,22 @@ export default async function handler(req, res) {
     const sdk = new XummSdk(XUMM_API_KEY, XUMM_API_SECRET);
     const { action, payload } = getJsonBody(req);
 
-    if (!action) {
-      return res.status(400).json({ ok: false, error: 'Missing action' });
-    }
+    if (!action) return res.status(400).json({ ok: false, error: 'Missing action' });
 
     let result;
-
     switch (action) {
-      case 'createPayload': {
+      case 'createPayload':
         if (!payload) return res.status(400).json({ ok: false, error: 'payload is required' });
         result = await sdk.payload.create(payload);
         break;
-      }
-      case 'getPayload': {
+      case 'getPayload':
         if (typeof payload !== 'string') {
-          return res.status(400).json({ ok: false, error: 'payload must be a UUID string for getPayload' });
+          return res.status(400).json({ ok: false, error: 'payload must be a UUID string' });
         }
         result = await sdk.payload.get(payload);
         break;
-      }
-      case 'subscribe': {
-        // not implemented via serverless streaming; use client polling
+      case 'subscribe':
         return res.status(501).json({ ok: false, error: 'subscribe not implemented; use polling' });
-      }
       default:
         return res.status(400).json({ ok: false, error: 'Invalid action' });
     }
