@@ -1,17 +1,17 @@
 {
   "name": "xrpman-player-secure",
   "version": "1.0.0",
-  "description": "Secure XUMM NFT Player with Vercel Serverless Functions",
   "private": true,
+  "description": "Secure XUMM NFT Player with Vercel Serverless Functions",
   "type": "module",
-  "engines": {
-    "node": ">=18.0.0"
-  },
+  "engines": { "node": ">=18" },
   "scripts": {
-    "start": "node server.js"
+    "dev": "vercel dev",
+    "build": "echo \"no build step\"",
+    "start": "node -v"
   },
   "dependencies": {
-    "xumm-sdk": "^1.8.3"
+    "xumm-sdk": "^3.0.0"
   },
   "devDependencies": {
     "vercel": "^32.5.0"
